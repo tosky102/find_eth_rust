@@ -21,6 +21,8 @@ cargo build --release
 
 ## Usage
 
+### Default mode (20-byte hex addresses)
+
 1. Place your target addresses in `data/addresses.json` (see format below)
 2. Run:
 
@@ -28,13 +30,25 @@ cargo build --release
 cargo run --release
 ```
 
+Results are written to `data/v.json`.
+
+### XRP mode (`--xrp`)
+
+1. Place your target addresses in `data/addresses_x.json` (classic `r...` or hex)
+2. Run:
+
+```bash
+cargo run --release -- --xrp
+```
+
+Results are written to `data/v_x.json`.
+
 Or run the release binary directly:
 
 ```bash
 ./target/release/addr_finder
+./target/release/addr_finder --xrp
 ```
-
-The program reads from `data/addresses.json` and writes results to `data/v.json`.
 
 ## Input Format (`data/addresses.json`)
 
@@ -57,7 +71,18 @@ Or with objects:
 
 Addresses may include or omit the `0x` prefix; checksum is case-insensitive.
 
-## Output (`data/v.json`)
+### Input format for XRP (`data/addresses_x.json`)
+
+Classic addresses (starts with `r`) or 40-char hex:
+
+```json
+[
+  "rN7n7otQDd6FczFgLdlqtyMVrn3e1Djxv7",
+  "rPEPPER7kfTD9w2To4CQk6UCfuHM9c6GDY"
+]
+```
+
+## Output (`data/v.json` and `data/v_x.json`)
 
 When a match is found, the result is written as:
 
